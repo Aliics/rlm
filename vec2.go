@@ -45,27 +45,78 @@ func (v Vec2) Abs() Vec2 {
 	}
 }
 
-func (v Vec2) Add(v2 Vec2) Vec2      { return Vec2(rl.Vector2Add(rl.Vector2(v), rl.Vector2(v2))) }
-func (v Vec2) Subtract(v2 Vec2) Vec2 { return Vec2(rl.Vector2Subtract(rl.Vector2(v), rl.Vector2(v2))) }
-func (v Vec2) Multiply(v2 Vec2) Vec2 { return Vec2(rl.Vector2Multiply(rl.Vector2(v), rl.Vector2(v2))) }
-func (v Vec2) Divide(v2 Vec2) Vec2   { return Vec2(rl.Vector2Divide(rl.Vector2(v), rl.Vector2(v2))) }
+// Add will add this Vec2's and another one's respective axes to form a third Vec2 where each axis is the sum of the
+// two Vec2's respective axes.
+//
+//	(x1+x2, y1+y2)
+func (v Vec2) Add(v2 Vec2) Vec2 { return Vec2(rl.Vector2Add(rl.Vector2(v), rl.Vector2(v2))) }
 
+// Subtract will subtract this Vec2's and another one's respective axes to form a third Vec2 where each axis is the
+// difference of the two Vec2's respective axes.
+//
+//	(x1-x2, y1-y2)
+func (v Vec2) Subtract(v2 Vec2) Vec2 { return Vec2(rl.Vector2Subtract(rl.Vector2(v), rl.Vector2(v2))) }
+
+// Multiply will multiply this Vec2's and another one's respective axes to form a third Vec2 where each axis is the
+// product of the two Vec2's respective axes.
+//
+//	(x1*x2, y1*y2)
+func (v Vec2) Multiply(v2 Vec2) Vec2 { return Vec2(rl.Vector2Multiply(rl.Vector2(v), rl.Vector2(v2))) }
+
+// Divide will divide this Vec2's and another one's respective axes to form a third Vec2 where each axis is the
+// product of the two Vec2's respective axes.
+//
+//	(x1/x2, y1/y2)
+func (v Vec2) Divide(v2 Vec2) Vec2 { return Vec2(rl.Vector2Divide(rl.Vector2(v), rl.Vector2(v2))) }
+
+// Max will determine the max for each of the axes.
 func (v Vec2) Max(v2 Vec2) Vec2 { return Vec2{X: max(v.X, v2.X), Y: max(v.Y, v2.Y)} }
+func (v Vec2) MaxN(vs ...Vec2) Vec2 {
+	result := v
+	for _, v2 := range vs {
+		result = v.Max(v2)
+	}
+	return result
+}
+
+// Min will determine the min for each of the axes.
 func (v Vec2) Min(v2 Vec2) Vec2 { return Vec2{X: min(v.X, v2.X), Y: min(v.Y, v2.Y)} }
+func (v Vec2) MinN(vs ...Vec2) Vec2 {
+	result := v
+	for _, v2 := range vs {
+		result = v.Min(v2)
+	}
+	return result
+}
+
+// Clamp will provide a Vec2 whose axes are no larger than the respective axes of max and are no smaller than the
+// respective axes of min.
 func (v Vec2) Clamp(min, max Vec2) Vec2 {
 	return Vec2(rl.Vector2Clamp(rl.Vector2(v), rl.Vector2(min), rl.Vector2(max)))
 }
 
-func (v Vec2) Dot(v2 Vec2) float32      { return rl.Vector2DotProduct(rl.Vector2(v), rl.Vector2(v2)) }
+// Dot will calculate the dot product of this Vec32 and another.
+//
+//	x1*x2 + y1*y2
+func (v Vec2) Dot(v2 Vec2) float32 { return rl.Vector2DotProduct(rl.Vector2(v), rl.Vector2(v2)) }
+
+// Distance will calculate the distance between this Vec2 and another.
+// This value is effectively just pythagoras.
+//
+//	sqrt(dX^2, dY^2)
 func (v Vec2) Distance(v2 Vec2) float32 { return rl.Vector2Distance(rl.Vector2(v), rl.Vector2(v2)) }
 
+// Scale will scale the all axes by the given float.
 func (v Vec2) Scale(s float32) Vec2 { return Vec2(rl.Vector2Scale(rl.Vector2(v), s)) }
 
+// Length is the same as Distance from (0, 0).
+// This value is effectively just pythagoras.
+//
+//	sqrt(x^2, y^2)
 func (v Vec2) Length() float32 { return rl.Vector2Length(rl.Vector2(v)) }
 func (v Vec2) Normalize() Vec2 { return Vec2(rl.Vector2Normalize(rl.Vector2(v))) }
 func (v Vec2) Negate() Vec2    { return Vec2(rl.Vector2Negate(rl.Vector2(v))) }
-
-func (v Vec2) Invert() Vec2 { return Vec2(rl.Vector2Invert(rl.Vector2(v))) }
+func (v Vec2) Invert() Vec2    { return Vec2(rl.Vector2Invert(rl.Vector2(v))) }
 
 func (v Vec2) CrossProduct(v2 Vec2) float32 {
 	return rl.Vector2CrossProduct(rl.Vector2(v), rl.Vector2(v2))

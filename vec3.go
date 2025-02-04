@@ -132,21 +132,37 @@ func (v Vec3) MinN(vs ...Vec3) Vec3 {
 	}
 	return result
 }
+
+// Clamp will provide a Vec3 whose axes are no larger than the respective axes of max and are no smaller than the
+// respective axes of min.
 func (v Vec3) Clamp(min, max Vec3) Vec3 {
 	return Vec3(rl.Vector3Clamp(rl.Vector3(v), rl.Vector3(min), rl.Vector3(max)))
 }
 
-func (v Vec3) Distance(v3 Vec3) float32 { return rl.Vector3Distance(rl.Vector3(v), rl.Vector3(v3)) }
-func (v Vec3) Dot(v3 Vec3) float32      { return rl.Vector3DotProduct(rl.Vector3(v), rl.Vector3(v3)) }
+// Dot will calculate the dot product of this Vec3 and another.
+//
+//	x1*x2 + y1*y2 + z1*z2
+func (v Vec3) Dot(v3 Vec3) float32 { return rl.Vector3DotProduct(rl.Vector3(v), rl.Vector3(v3)) }
 
+// Distance will calculate the distance between this Vec3 and another.
+// This value is effectively just pythagoras in 3 dimensions.
+//
+//	sqrt(dX^2, dY^2, dZ^2)
+func (v Vec3) Distance(v3 Vec3) float32 { return rl.Vector3Distance(rl.Vector3(v), rl.Vector3(v3)) }
+
+// Scale will scale the all axes by the given float.
 func (v Vec3) Scale(s float32) Vec3 { return Vec3(rl.Vector3Scale(rl.Vector3(v), s)) }
 
+// Length is the same as Distance from (0, 0, 0).
+// This value is effectively just pythagoras in 3 dimensions.
+//
+//	sqrt(x^2, y^2, z^2)
 func (v Vec3) Length() float32 { return rl.Vector3Length(rl.Vector3(v)) }
-
 func (v Vec3) Normalize() Vec3 { return Vec3(rl.Vector3Normalize(rl.Vector3(v))) }
 func (v Vec3) Negate() Vec3    { return Vec3(rl.Vector3Negate(rl.Vector3(v))) }
 func (v Vec3) Invert() Vec3    { return Vec3(rl.Vector3Invert(rl.Vector3(v))) }
 
+// CrossProduct will calculate the cross between this Vec3 and another.
 func (v Vec3) CrossProduct(v3 Vec3) Vec3 {
 	return Vec3(rl.Vector3CrossProduct(rl.Vector3(v), rl.Vector3(v3)))
 }
