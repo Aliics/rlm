@@ -35,6 +35,11 @@ func (v Vec2) YY() (float32, float32) { return v.Y, v.Y }
 
 func (v Vec2) ToVec3(z float32) Vec3 { return Vec3{X: v.X, Y: v.Y, Z: z} }
 
+// Equals compares this and another Vec2 taking into account floating point precision.
+func (v Vec2) Equals(v2 Vec2) bool      { return rl.Vector2Equals(rl.Vector2(v), rl.Vector2(v2)) }
+func (v Vec2) LessThan(v2 Vec2) bool    { return v.X < v2.Y && v.Y < v2.Y }
+func (v Vec2) GreaterThan(v2 Vec2) bool { return v.X > v2.Y && v.Y > v2.Y }
+
 // Abs will create a new Vec2 where all axes are their absolute values.
 //
 //	(abs(x), abs(y))
@@ -117,6 +122,11 @@ func (v Vec2) Length() float32 { return rl.Vector2Length(rl.Vector2(v)) }
 func (v Vec2) Normalize() Vec2 { return Vec2(rl.Vector2Normalize(rl.Vector2(v))) }
 func (v Vec2) Negate() Vec2    { return Vec2(rl.Vector2Negate(rl.Vector2(v))) }
 func (v Vec2) Invert() Vec2    { return Vec2(rl.Vector2Invert(rl.Vector2(v))) }
+
+// Lerp linearly interpolate a Vec2 between this Vec2 and another.
+func (v Vec2) Lerp(v2 Vec2, x float32) Vec2 {
+	return Vec2(rl.Vector2Lerp(rl.Vector2(v), rl.Vector2(v2), x))
+}
 
 func (v Vec2) CrossProduct(v2 Vec2) float32 {
 	return rl.Vector2CrossProduct(rl.Vector2(v), rl.Vector2(v2))

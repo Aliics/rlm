@@ -46,20 +46,20 @@ func (v Vec3) XZX() (x1 float32, z float32, x2 float32) { return v.X, v.Z, v.X }
 func (v Vec3) ZXX() (z float32, x1 float32, x2 float32) { return v.Z, v.X, v.X }
 
 func (v Vec3) YYY() (float32, float32, float32)         { return v.Y, v.Y, v.Y }
-func (v Vec3) YYX() (y1 float32, y2 float32, y float32) { return v.Y, v.Y, v.X }
-func (v Vec3) YXY() (y1 float32, y float32, y2 float32) { return v.Y, v.X, v.Y }
-func (v Vec3) XYY() (y float32, y1 float32, y2 float32) { return v.X, v.Y, v.Y }
+func (v Vec3) YYX() (y1 float32, y2 float32, x float32) { return v.Y, v.Y, v.X }
+func (v Vec3) YXY() (y1 float32, x float32, y2 float32) { return v.Y, v.X, v.Y }
+func (v Vec3) XYY() (x float32, y1 float32, y2 float32) { return v.X, v.Y, v.Y }
 func (v Vec3) YYZ() (y1 float32, y2 float32, z float32) { return v.Y, v.Y, v.Z }
 func (v Vec3) YZY() (y1 float32, z float32, y2 float32) { return v.Y, v.Z, v.Y }
 func (v Vec3) ZYY() (z float32, y1 float32, y2 float32) { return v.Z, v.Y, v.Y }
 
 func (v Vec3) ZZZ() (float32, float32, float32)         { return v.Z, v.Z, v.Z }
-func (v Vec3) ZZX() (z1 float32, z2 float32, Z float32) { return v.Z, v.Z, v.X }
-func (v Vec3) ZXZ() (z1 float32, Z float32, z2 float32) { return v.Z, v.X, v.Z }
-func (v Vec3) XZZ() (Z float32, z1 float32, z2 float32) { return v.X, v.Z, v.Z }
-func (v Vec3) ZZY() (z1 float32, z2 float32, Z float32) { return v.Z, v.Z, v.Y }
-func (v Vec3) ZYZ() (z1 float32, Z float32, z2 float32) { return v.Z, v.Y, v.Z }
-func (v Vec3) YZZ() (z float32, z1 float32, z2 float32) { return v.Y, v.Z, v.Z }
+func (v Vec3) ZZX() (z1 float32, z2 float32, x float32) { return v.Z, v.Z, v.X }
+func (v Vec3) ZXZ() (z1 float32, x float32, z2 float32) { return v.Z, v.X, v.Z }
+func (v Vec3) XZZ() (x float32, z1 float32, z2 float32) { return v.X, v.Z, v.Z }
+func (v Vec3) ZZY() (z1 float32, z2 float32, y float32) { return v.Z, v.Z, v.Y }
+func (v Vec3) ZYZ() (z1 float32, y float32, z2 float32) { return v.Z, v.Y, v.Z }
+func (v Vec3) YZZ() (y float32, z1 float32, z2 float32) { return v.Y, v.Z, v.Z }
 
 func (v Vec3) XYZ() (x, y, z float32) { return v.X, v.Y, v.Z }
 func (v Vec3) XZY() (x, z, y float32) { return v.X, v.Z, v.Y }
@@ -77,6 +77,11 @@ func (v Vec3) ZX() (z, x float32)     { return v.Z, v.X }
 func (v Vec3) XX() (float32, float32) { return v.X, v.X }
 func (v Vec3) YY() (float32, float32) { return v.Y, v.Y }
 func (v Vec3) ZZ() (float32, float32) { return v.Z, v.Z }
+
+// Equals compares this and another Vec3 taking into account floating point precision.
+func (v Vec3) Equals(v3 Vec3) bool      { return rl.Vector3Equals(rl.Vector3(v), rl.Vector3(v3)) }
+func (v Vec3) LessThan(v3 Vec3) bool    { return v.X < v3.Y && v.Y < v3.Y && v.Z < v3.Z }
+func (v Vec3) GreaterThan(v3 Vec3) bool { return v.X > v3.Y && v.Y > v3.Y && v.Z > v3.Z }
 
 // Abs will create a new Vec3 where all axes are their absolute values.
 //
@@ -161,6 +166,11 @@ func (v Vec3) Length() float32 { return rl.Vector3Length(rl.Vector3(v)) }
 func (v Vec3) Normalize() Vec3 { return Vec3(rl.Vector3Normalize(rl.Vector3(v))) }
 func (v Vec3) Negate() Vec3    { return Vec3(rl.Vector3Negate(rl.Vector3(v))) }
 func (v Vec3) Invert() Vec3    { return Vec3(rl.Vector3Invert(rl.Vector3(v))) }
+
+// Lerp linearly interpolate a Vec3 between this Vec3 and another.
+func (v Vec3) Lerp(v3 Vec3, x float32) Vec3 {
+	return Vec3(rl.Vector3Lerp(rl.Vector3(v), rl.Vector3(v3), x))
+}
 
 // CrossProduct will calculate the cross between this Vec3 and another.
 func (v Vec3) CrossProduct(v3 Vec3) Vec3 {
