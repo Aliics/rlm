@@ -8,12 +8,13 @@ import (
 type Vec2 rl.Vector2
 
 var (
-	Vec2Zero  Vec2 = Vec2{}
-	Vec2XY    Vec2 = Vec2{X: 1, Y: 1}
-	Vec2Up    Vec2 = Vec2{Y: 1}
-	Vec2Down  Vec2 = Vec2{Y: -1}
-	Vec2Left  Vec2 = Vec2{X: 1}
-	Vec2Right Vec2 = Vec2{X: -1}
+	Vec2Zero     = Vec2{}
+	Vec2Identity = Vec2{}
+	Vec2XY       = Vec2{X: 1, Y: 1}
+	Vec2Up       = Vec2{Y: 1}
+	Vec2Down     = Vec2{Y: -1}
+	Vec2Left     = Vec2{X: 1}
+	Vec2Right    = Vec2{X: -1}
 )
 
 func NewVec2(x, y float32) Vec2 { return Vec2{X: x, Y: y} }
@@ -38,6 +39,9 @@ func (v Vec2) XY() (x, y float32)     { return v.X, v.Y }
 func (v Vec2) YX() (y, x float32)     { return v.Y, v.X }
 func (v Vec2) XX() (float32, float32) { return v.X, v.X }
 func (v Vec2) YY() (float32, float32) { return v.Y, v.Y }
+
+func (v Vec2) Floats() []float32  { return []float32{v.X, v.Y} }
+func (v Vec2) Float2() [2]float32 { return [...]float32{v.X, v.Y} }
 
 func (v Vec2) ToVec3(z float32) Vec3 { return Vec3{X: v.X, Y: v.Y, Z: z} }
 

@@ -8,18 +8,18 @@ import (
 type Vec3 rl.Vector3
 
 var (
-	Vec3Zero     Vec3 = Vec3{}
-	Vec3Identity Vec3 = Vec3{}
-	Vec3XYZ      Vec3 = Vec3{X: 1, Y: 1, Z: 1}
-	Vec3XY       Vec3 = Vec3{X: 1, Y: 1}
-	Vec3YZ       Vec3 = Vec3{Y: 1, Z: 1}
-	Vec3XZ       Vec3 = Vec3{X: 1, Z: 1}
-	Vec3Up       Vec3 = Vec3{Y: 1}
-	Vec3Down     Vec3 = Vec3{Y: -1}
-	Vec3Left     Vec3 = Vec3{X: 1}
-	Vec3Right    Vec3 = Vec3{X: -1}
-	Vec3Front    Vec3 = Vec3{Z: 1}
-	Vec3Back     Vec3 = Vec3{Z: -1}
+	Vec3Zero     = Vec3{}
+	Vec3Identity = Vec3{}
+	Vec3XYZ      = Vec3{X: 1, Y: 1, Z: 1}
+	Vec3XY       = Vec3{X: 1, Y: 1}
+	Vec3YZ       = Vec3{Y: 1, Z: 1}
+	Vec3XZ       = Vec3{X: 1, Z: 1}
+	Vec3Up       = Vec3{Y: 1}
+	Vec3Down     = Vec3{Y: -1}
+	Vec3Left     = Vec3{X: 1}
+	Vec3Right    = Vec3{X: -1}
+	Vec3Front    = Vec3{Z: 1}
+	Vec3Back     = Vec3{Z: -1}
 )
 
 func NewVec3(x, y, z float32) Vec3 { return Vec3{X: x, Y: y, Z: z} }
@@ -86,6 +86,9 @@ func (v Vec3) ZX() (z, x float32)     { return v.Z, v.X }
 func (v Vec3) XX() (float32, float32) { return v.X, v.X }
 func (v Vec3) YY() (float32, float32) { return v.Y, v.Y }
 func (v Vec3) ZZ() (float32, float32) { return v.Z, v.Z }
+
+func (v Vec3) Floats() []float32  { return []float32{v.X, v.Y, v.Z} }
+func (v Vec3) Float3() [3]float32 { return [...]float32{v.X, v.Y, v.Z} }
 
 // Equals compares this and another Vec3 taking into account floating point precision.
 func (v Vec3) Equals(v3 Vec3) bool      { return rl.Vector3Equals(rl.Vector3(v), rl.Vector3(v3)) }
