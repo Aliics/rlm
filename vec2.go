@@ -18,12 +18,18 @@ var (
 
 func NewVec2(x, y float32) Vec2 { return Vec2{X: x, Y: y} }
 func NewVec2N(v ...float32) Vec2 {
-	var result Vec2
+	var (
+		result Vec2
+		prev   float32
+	)
 	if len(v) > 0 {
 		result.X = v[0]
+		prev = result.X
 	}
 	if len(v) > 1 {
 		result.Y = v[1]
+	} else {
+		result.Y = prev
 	}
 	return result
 }

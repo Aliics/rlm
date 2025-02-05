@@ -24,15 +24,24 @@ var (
 
 func NewVec3(x, y, z float32) Vec3 { return Vec3{X: x, Y: y, Z: z} }
 func NewVec3N(v ...float32) Vec3 {
-	var result Vec3
+	var (
+		result Vec3
+		prev   float32
+	)
 	if len(v) > 0 {
 		result.X = v[0]
+		prev = result.X
 	}
 	if len(v) > 1 {
 		result.Y = v[1]
+		prev = result.Y
+	} else {
+		result.Y = prev
 	}
 	if len(v) > 2 {
 		result.Z = v[2]
+	} else {
+		result.Z = prev
 	}
 	return result
 }
